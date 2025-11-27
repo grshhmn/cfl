@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { ethers } from "ethers";
-import { useDecrypt, useEncrypt, useLoyaltyContract } from "../hooks";
+import { useDecrypt } from "../hooks";
 
 interface BalanceDisplayProps {
   address: string;

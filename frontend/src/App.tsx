@@ -32,7 +32,6 @@ function App() {
     contractAddress,
     contractInfo,
     isMerchant,
-    isCustomer,
     isLoading: contractLoading,
     error: contractError,
     fetchContractInfo,

@@ -2,8 +2,8 @@ import { useState, useCallback } from "react";
 import { getFheInstance } from "../core/fhevm";
 
 export interface EncryptedInput {
-  handles: string[];
-  inputProof: string;
+  handles: Uint8Array[];
+  inputProof: Uint8Array;
 }
 
 export function useEncrypt() {
