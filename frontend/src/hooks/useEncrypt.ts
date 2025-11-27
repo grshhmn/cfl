@@ -2,8 +2,13 @@ import { useState, useCallback } from "react";
 import { getFheInstance } from "../core/fhevm";
 
 export interface EncryptedInput {
-  handles: Uint8Array[];
-  inputProof: Uint8Array;
+  handles: string[];
+  inputProof: string;
+}
+
+// Helper to convert Uint8Array to hex string
+function toHexString(bytes: Uint8Array): string {
+  return "0x" + Array.from(bytes).map(b => b.toString(16).padStart(2, "0")).join("");
 }
 
 export function useEncrypt() {
@@ -40,7 +45,14 @@ export function useEncrypt() {
         console.log("[useEncrypt] Encryption complete:", encrypted);
         console.log("[useEncrypt] Handles:", encrypted.handles);
         console.log("[useEncrypt] Input proof length:", encrypted.inputProof?.length);
-        return encrypted as EncryptedInput;
+
+        // Convert Uint8Array to hex strings for contract compatibility
+        const result: EncryptedInput = {
+          handles: encrypted.handles.map(h => toHexString(h)),
+          inputProof: toHexString(encrypted.inputProof),
+        };
+        console.log("[useEncrypt] Converted handles:", result.handles);
+        return result;
       } catch (err) {
         console.error("[useEncrypt] Failed:", err);
         setError(err instanceof Error ? err.message : String(err));
